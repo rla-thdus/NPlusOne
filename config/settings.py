@@ -52,8 +52,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'nplusone',
-    'faker',
-    'factory-boy'
 ]
 
 MIDDLEWARE = [
