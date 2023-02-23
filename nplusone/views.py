@@ -4,6 +4,14 @@ from rest_framework.response import Response
 
 from nplusone.models import WebToon
 
+
+@api_view(['GET'])
+def own_field_test(request):
+    for webtoon in WebToon.objects.all():
+        print(webtoon.title)
+    return Response(status=status.HTTP_200_OK)
+
+
 @api_view(['GET'])
 def one_to_one_test(request):
     for webtoon in WebToon.objects.all():
