@@ -4,13 +4,22 @@ from django.db import models
 class Tag(models.Model):
     name = models.CharField(max_length=25, unique=True)
 
+    def __str__(self):
+        return self.name
+
 
 class UploadDay(models.Model):
     day = models.CharField(max_length=5, unique=True)
 
+    def __str__(self):
+        return self.day
+
 
 class Writer(models.Model):
     name = models.CharField(max_length=10, unique=True)
+
+    def __str__(self):
+        return self.name
 
 
 class WebToon(models.Model):
