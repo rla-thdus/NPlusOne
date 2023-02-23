@@ -6,7 +6,7 @@ class Tag(models.Model):
 
 
 class UploadDay(models.Model):
-    day = models.CharField(max_length=1)
+    day = models.CharField(max_length=5, unique=True)
 
 
 class Writer(models.Model):
