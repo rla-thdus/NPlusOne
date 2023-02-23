@@ -17,3 +17,10 @@ def one_to_many_test(request):
         print(webtoon.upload_date.day)
     return Response(status=status.HTTP_200_OK)
 
+
+@api_view(['GET'])
+def many_to_many_test(request):
+    for webtoon in WebToon.objects.all():
+        print(webtoon.title, [tag.name for tag in webtoon.tag.all()])
+    return Response(status=status.HTTP_200_OK)
+
