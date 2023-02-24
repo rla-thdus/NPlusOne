@@ -32,3 +32,10 @@ def many_to_many_test(request):
         print(webtoon.title, [tag.name for tag in webtoon.tag.all()])
     return Response(status=status.HTTP_200_OK)
 
+
+@api_view(['GET'])
+def one_to_one_solve_test(request):
+    for webtoon in WebToon.objects.all().select_related('writer'):
+        print(webtoon.writer.name)
+    return Response(status=status.HTTP_200_OK)
+
