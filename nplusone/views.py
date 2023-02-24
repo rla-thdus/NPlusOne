@@ -39,3 +39,9 @@ def one_to_one_solve_test(request):
         print(webtoon.writer.name)
     return Response(status=status.HTTP_200_OK)
 
+
+@api_view(['GET'])
+def one_to_many_solve_test(request):
+    for webtoon in WebToon.objects.all().select_related('upload_date'):
+        print(webtoon.upload_date.day)
+    return Response(status=status.HTTP_200_OK)
