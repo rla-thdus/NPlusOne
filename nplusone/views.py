@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from nplusone.models import WebToon
+from nplusone.models import WebToon, UploadDay
 
 
 @api_view(['GET'])
@@ -23,6 +23,13 @@ def one_to_one_test(request):
 def one_to_many_test(request):
     for webtoon in WebToon.objects.all():
         print(webtoon.upload_date.day)
+    return Response(status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def many_to_one_test(request):
+    for upload_day in UploadDay.objects.all():
+        print([day.title for day in upload_day.webtoon_set.all()])
     return Response(status=status.HTTP_200_OK)
 
 
