@@ -55,6 +55,13 @@ def one_to_many_solve_test(request):
 
 
 @api_view(['GET'])
+def many_to_one_solve_test(request):
+    for upload_day in UploadDay.objects.all().prefetch_related('webtoon_set'):
+        print([day.title for day in upload_day.webtoon_set.all()])
+    return Response(status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
 def many_to_many_solve_test(request):
     for webtoon in WebToon.objects.all().prefetch_related('tag'):
         print(webtoon.title, [tag.name for tag in webtoon.tag.all()])
