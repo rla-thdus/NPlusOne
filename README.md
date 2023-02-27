@@ -31,3 +31,37 @@ for webtoon in WebToon.objects.all():
     print(webtoon.title, [tag.name for tag in webtoon.tag.all()])
 ```
 ![](img/many-to-many.png)
+
+## N+1 해결
+Django ORM의 Eager Loading 방식인 `select_related()` 와 `prefetch_related()` 를 사용해서 해결할 수 있다.
+
+### 1️⃣ `select_related()` 사용
+#### 1:1 관계 테이블 가져오기
+```python
+for webtoon in WebToon.objects.all().select_related('writer'):
+    print(webtoon.writer.name)
+```
+![](img/onetoonesolve.png)
+
+#### 1:N 관계 중 N 가져오기
+```python
+for webtoon in WebToon.objects.all().select_related('upload_date'):
+    print(webtoon.upload_date.day)
+```
+![](img/one-to-many-solve.png)
+
+### 2️⃣ `prefetch_related()` 사용
+#### 1:N 관계 중 1 가져오기
+```python
+for upload_day in UploadDay.objects.all().prefetch_related('webtoon_set'):
+    print([day.title for day in upload_day.webtoon_set.all()])
+```
+![](img/many-to-one-solve.png)
+
+#### N:M 관계 테이블 가져오기
+```python
+for webtoon in WebToon.objects.all().prefetch_related('tag'):
+    print(webtoon.title, [tag.name for tag in webtoon.tag.all()])
+```
+![](img/many-to-many-solve.png)
+
